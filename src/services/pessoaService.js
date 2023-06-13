@@ -47,8 +47,18 @@ async function editPessoa(dados, idEdicao) {
   return { message: msg }
 }
 
+const excluir = async (id) => {
+  let sql = 'delete from pessoas where id = $1;';
+  let query = await db.query(sql, [id]);
+  return {
+    deletado: query.rowCount == 1,
+    id
+  }
+}
+
 export default {
   getAll,
   create,
-  editPessoa
+  editPessoa,
+  excluir
 }
